@@ -10,20 +10,24 @@ spec:
         app: demo-e2e
 
 ---
-
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-e2e 
+  name: demo-e2e
+  labels:
+    app: demo-e2e
 spec:
-  replicas: 1
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-e2e
   template:
     metadata:
       labels:
-        app: demo-e2e 
+        app: demo-e2e
     spec:
       containers:
-        - name: demo-e2e 
-          image: dsmsacr.azurecr.io/demo-e2e
-          ports:
-          - containerPort: 80
+      - name: demo-e2e
+        image: dsmsacr.azurecr.io/demo-e2e
+        ports:
+        - containerPort: 80
