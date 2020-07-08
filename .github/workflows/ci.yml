@@ -82,3 +82,17 @@ jobs:
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
+
+  post-deploy:
+    runs-on: ubuntu-latest
+    if: github.event.ref == 'refs/heads/master'
+    needs: [deploy]
+    steps:
+    - uses: ds-ms/asc-assessment@master
+      name: "Create Assessment"
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+          cluster-name:  ${{ env.CLUSTER_NAME }}
+          severity: Medium
+    
