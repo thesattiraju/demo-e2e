@@ -101,6 +101,12 @@ jobs:
           cluster-name:  ${{ env.CLUSTER_NAME }}
           severity: Medium
 
+    - name: Login to Azure
+      uses: azure/login@v1.1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true
+
     - name: Check resource policy compliance post deployment
       uses: ajinkya599/AzPac@azpac-initial
       with:
