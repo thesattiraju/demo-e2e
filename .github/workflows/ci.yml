@@ -87,7 +87,7 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'e2eapp'
-        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+        publish-profile: ${{ secrets.WEB_APP_PUBLISH_PROFILE }}
         images: ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
 
   post-deploy:
