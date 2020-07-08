@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  REGISTRY_NAME: dsmsacr
+  CLUSTER_NAME: ds-ms
+  CLUSTER_RESOURCE_GROUP: ds-ms
+  NAMESPACE: demo-e2e
+
 jobs:
   pre-deploy:
     runs-on: ubuntu-latest
@@ -34,11 +40,42 @@ jobs:
     - name: Push image
       if: github.event.ref == 'refs/heads/master'
       run: |
-        docker tag demo-e2e dsmsacr.azurecr.io/demo-e2e:${{ github.sha }}
-        docker push dsmsacr.azurecr.io/demo-e2e:${{ github.sha }}
+        docker tag demo-e2e ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
 
     - name: Upload Container Scan Report
       uses: github/codeql-action/upload-sarif@v1
       if: github.event.ref == 'refs/heads/master'
       with:
         sarif_file: ${{ steps.imagescan.outputs.sarif-file-path }}
+  
+  deploy:
+    if: github.event.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    
+    - run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+    
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
+    
+    - uses: azure/k8s-deploy@v1
+      with:
+        manifests: |
+          manifests/deploy.yml
+        images: |
+          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        imagepullsecrets: |
+          ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
