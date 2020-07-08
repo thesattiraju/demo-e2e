@@ -1,6 +1,7 @@
 ---
 general:
   vulnerabilities:
+  - CVE-2005-2541
   - CVE-2020-10878
   - CVE-2020-8492
   - CVE-2020-15358
