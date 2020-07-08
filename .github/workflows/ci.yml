@@ -95,4 +95,10 @@ jobs:
           resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
           cluster-name:  ${{ env.CLUSTER_NAME }}
           severity: Medium
-    
+
+    - name: Check resource policy compliance post deployment
+      uses: ajinkya599/AzPac@azpac-initial
+      with:
+        scopes: |
+          /subscriptions/c00d16c7-6c1f-4c03-9be1-6934a4c49682/resourcegroups/az-pac-dev/providers/Microsoft.Web/sites/e2egoapp
+      
