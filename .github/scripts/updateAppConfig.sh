@@ -1,5 +1,5 @@
 token=$(az account get-access-token --resource=https://management.azure.com | jq -r .accessToken)
-configInput=$(cat ./workflow/.github/workflows/scripts/$1)
+configInput=$(cat ./templates/.github/workflows/scripts/$1)
 echo ">> $1"
 echo ">> $2"
 echo ">> $configInput"
