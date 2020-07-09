@@ -85,8 +85,8 @@ jobs:
       uses: aksm-ms/webapps-deploy@enum-fix
       with:
         app-name: 'e2egoapp'
-        images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
+        images: dsmsacr.azurecr.io/demo-e2e:${{ github.sha }}
+
 
   post-deploy:
     runs-on: ubuntu-latest
