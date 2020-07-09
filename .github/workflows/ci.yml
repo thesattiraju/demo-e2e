@@ -80,13 +80,21 @@ jobs:
                   "slotSetting": false
               }
           ]
+
+    - name: Checkout templates
+      uses: actions/checkout@master
+      with:
+        path: templates
     
-    - name: Deploy to containerized web app
+    - name: Update WebApp configuration
+      run: |
+        bash ./templates/.github/scripts/updateAppConfig.sh https://management.azure.com/subscriptions/c00d16c7-6c1f-4c03-9be1-6934a4c49682/resourceGroups/az-pac-demo/providers/Microsoft.Web/sites/e2edemoapp?api-version=2019-08-01
+    
+    - name: Deploy
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'e2edemoapp'
         images: ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
-
 
   post-deploy:
     runs-on: ubuntu-latest
