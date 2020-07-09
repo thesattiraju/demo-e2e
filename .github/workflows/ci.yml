@@ -62,7 +62,7 @@ jobs:
     - name: Deploy to containerized web app
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'e2eapp'
+        app-name: 'e2egoapp'
         images: ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
 
   post-deploy:
