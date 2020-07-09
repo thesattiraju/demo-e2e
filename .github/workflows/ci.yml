@@ -60,7 +60,7 @@ jobs:
         enable-AzPSSession: true
     
     - name: Set Web App ACR authentication
-      uses: Azure/appservice-settings@v2.1
+      uses: Azure/appservice-settings@v1
       with:
         app-name: 'e2egoapp'
         app-settings-json: |
@@ -83,7 +83,7 @@ jobs:
           ]
     
     - name: Deploy to containerized web app
-      uses: azure/webapps-deploy@v1
+      uses: azure/webapps-deploy@v2.1
       with:
         app-name: 'e2egoapp'
         images: ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
