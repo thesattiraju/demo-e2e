@@ -71,7 +71,7 @@ jobs:
               },
               {
                   "name": "DOCKER_REGISTRY_SERVER_URL",
-                  "value": "dsmsacr.azurecr.io",
+                  "value": "${{ env.REGISTRY_NAME }}.azurecr.io",
                   "slotSetting": false
               },
               {
@@ -85,7 +85,8 @@ jobs:
       uses: aksm-ms/webapps-deploy@enum-fix
       with:
         app-name: 'e2egoapp'
-        images: ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
+        images: |
+          ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
 
   post-deploy:
     runs-on: ubuntu-latest
