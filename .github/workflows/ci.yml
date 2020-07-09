@@ -88,7 +88,7 @@ jobs:
     
     - name: Update WebApp configuration
       run: |
-        bash ./templates/.github/scripts/updateAppConfig.sh appConfig.json https://management.azure.com/subscriptions/c00d16c7-6c1f-4c03-9be1-6934a4c49682/resourceGroups/az-pac-demo/providers/Microsoft.Web/sites/e2edemoapp?api-version=2019-08-01
+        bash ./templates/.github/scripts/updateAppConfig.sh appConfig.json subscriptions/c00d16c7-6c1f-4c03-9be1-6934a4c49682/resourceGroups/az-pac-demo/providers/Microsoft.Web/sites/e2edemoapp
     
     - name: Deploy
       uses: azure/webapps-deploy@v2
