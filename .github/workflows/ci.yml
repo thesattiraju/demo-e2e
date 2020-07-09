@@ -61,7 +61,7 @@ jobs:
     - name: Set Web App ACR authentication
       uses: Azure/appservice-settings@v1
       with:
-        app-name: 'e2egoapp'
+        app-name: 'e2edemoapp'
         app-settings-json: |
           [
               {
@@ -82,9 +82,9 @@ jobs:
           ]
     
     - name: Deploy to containerized web app
-      uses: aksm-ms/webapps-deploy@enum-fix
+      uses: azure/webapps-deploy@v2
       with:
-        app-name: 'e2egoapp'
+        app-name: 'e2edemoapp'
         images: dsmsacr.azurecr.io/demo-e2e:${{ github.sha }}
 
 
