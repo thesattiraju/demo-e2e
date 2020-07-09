@@ -50,38 +50,10 @@ jobs:
         sarif_file: ${{ steps.imagescan.outputs.sarif-file-path }}
   
   deploy:
-    if: github.event.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: [pre-deploy]
     steps:
     - uses: actions/checkout@v2
-    
-    - uses: azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: ${{ env.CLUSTER_NAME }}
-        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
-    
-    - run: |
-        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
-    
-    - uses: azure/k8s-create-secret@v1
-      with:
-        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
-        container-registry-username: ${{ secrets.DOCKER_USERNAME }}
-        container-registry-password: ${{ secrets.DOCKER_PASSWORD }}
-        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
-        namespace: ${{ env.NAMESPACE }}
-    
-    - uses: azure/k8s-deploy@v1
-      with:
-        manifests: |
-          manifests/deploy.yml
-        images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
-        imagepullsecrets: |
-          ${{ env.REGISTRY_NAME }}-registry-connection
-        namespace: ${{ env.NAMESPACE }}
     
     - name: Deploy to containerized web app
       uses: azure/webapps-deploy@v2
@@ -92,7 +64,6 @@ jobs:
 
   post-deploy:
     runs-on: ubuntu-latest
-    if: github.event.ref == 'refs/heads/master'
     needs: [deploy]
     steps:
     - uses: ds-ms/asc-assessment@master
@@ -113,4 +84,5 @@ jobs:
       uses: ajinkya599/AzPac@azpac-initial
       with:
         scopes: |
-          ${{secrets.POLICY_SCAN_SCOPE}}      
+          ${{secrets.POLICY_SCAN_SCOPE}}
+
