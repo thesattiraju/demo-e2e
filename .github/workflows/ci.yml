@@ -60,7 +60,7 @@ jobs:
         enable-AzPSSession: true
     
     - name: Deploy to containerized web app
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v1
       with:
         app-name: 'e2egoapp'
         images: ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
