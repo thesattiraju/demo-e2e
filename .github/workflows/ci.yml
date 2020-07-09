@@ -60,7 +60,7 @@ jobs:
         enable-AzPSSession: true
     
     - name: Set Web App ACR authentication
-      uses: Azure/appservice-settings@v1
+      uses: Azure/appservice-settings@v2.1
       with:
         app-name: 'e2egoapp'
         app-settings-json: |
@@ -72,7 +72,7 @@ jobs:
               },
               {
                   "name": "DOCKER_REGISTRY_SERVER_URL",
-                  "value": ${{ env.REGISTRY_NAME }}.azurecr.io,
+                  "value": "${{ env.REGISTRY_NAME }}.azurecr.io",
                   "slotSetting": false
               },
               {
