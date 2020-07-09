@@ -57,6 +57,7 @@ jobs:
       uses: azure/login@v1.1
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true  
     
     - name: Set Web App ACR authentication
       uses: Azure/appservice-settings@v1
