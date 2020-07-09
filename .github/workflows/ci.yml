@@ -85,7 +85,7 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'e2edemoapp'
-        images: dsmsacr.azurecr.io/demo-e2e:${{ github.sha }}
+        images: ${{ env.REGISTRY_NAME }}.azurecr.io/demo-e2e:${{ github.sha }}
 
 
   post-deploy:
@@ -99,12 +99,6 @@ jobs:
           resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
           cluster-name:  ${{ env.CLUSTER_NAME }}
           severity: Medium
-
-    - name: Login to Azure
-      uses: azure/login@v1.1
-      with:
-        creds: ${{secrets.AZURE_CREDENTIALS}}
-        enable-AzPSSession: true
 
     - name: Check resource policy compliance post deployment
       uses: ajinkya599/AzPac@azpac-initial
