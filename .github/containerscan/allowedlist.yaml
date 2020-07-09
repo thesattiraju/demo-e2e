@@ -12,6 +12,10 @@ general:
   - CVE-2019-19815
   - CVE-2019-19816
   - CVE-2020-13974
+  - 'The exempted vulnerabilities can be found here: https://github.com/ds-ms/demo-e2e/blob/d2bca494dd3c73c94f1178ffda3dd0f9ccb5ac49/.github/containerscan/allowedlist.yaml'
+  - CVE-2020-10878
+  - CVE-2020-8492
+  - CVE-2020-15358
   bestPracticeViolations:
   - CIS-DI-0009
   - CIS-DI-0001
