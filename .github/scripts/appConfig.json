@@ -1,5 +1,17 @@
 {
     "properties": {
-        "httpsOnly": "false"
+        "httpsOnly": "true",
+        "deploymentId": "e2edemoapp",
+        "trafficManagerHostNames": null,
+        "sku": "Basic",
+        "scmSiteAlsoStopped": false,
+        "targetSwapSlot": null,
+        "hostingEnvironment": null,
+        "hostingEnvironmentProfile": null,
+        "clientAffinityEnabled": false,
+        "clientCertEnabled": false,
+        "clientCertMode": "Required",
+        "clientCertExclusionPaths": null,
+        "hostNamesDisabled": false
     }
 }

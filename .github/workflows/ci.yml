@@ -113,7 +113,7 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
 
     - name: Check resource policy compliance post deployment
-      uses: ajinkya599/AzPac@azpac-initial
+      uses: ajinkya599/AzPac@release-1.0.0
       with:
         scopes: |
           /subscriptions/c00d16c7-6c1f-4c03-9be1-6934a4c49682/resourcegroups/az-pac-demo/providers/Microsoft.Web/sites/e2edemoapp
