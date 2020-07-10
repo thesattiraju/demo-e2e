@@ -1,6 +1,6 @@
 {
     "properties": {
-        "httpsOnly": "true",
+        "httpsOnly": "false",
         "deploymentId": "e2edemoapp",
         "trafficManagerHostNames": null,
         "sku": "Basic",
