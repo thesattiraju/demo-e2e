@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Login to Azure
       uses: azure/login@v1.1
       with:
@@ -29,3 +29,5 @@ jobs:
         scopes: |
           /subscriptions/c00d16c7-6c1f-4c03-9be1-6934a4c49682/resourcegroups/az-pac-demo/providers/Microsoft.Web/sites/e2edemoapp
 
+
+          
